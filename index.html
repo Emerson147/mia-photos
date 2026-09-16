@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mia Esperanza — Photography Portfolio</title>
+    <meta name="description"
+        content="Mia Esperanza's photography portfolio — capturing moments between reality and dream. A cinematic visual experience.">
+    <meta property="og:title" content="Mia Esperanza — Photography Portfolio">
+    <meta property="og:description" content="Capturing moments between reality and dream.">
+    <meta property="og:type" content="website">
+    <link rel="icon" href="./media/rosa-icon.png">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <!-- Lenis -->
+    <link rel="stylesheet" href="https://unpkg.com/lenis@1.1.18/dist/lenis.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+        integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer">
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- Custom Cursor (desktop only, hidden via CSS on mobile) -->
+    <div class="cursor" id="cursor" aria-hidden="true">
+        <div class="cursor-dot"></div>
+        <div class="cursor-circle"></div>
+        <span class="cursor-text">View</span>
+    </div>
+
+    <!-- Film Grain Overlay -->
+    <div class="grain" aria-hidden="true"></div>
+
+    <!-- Preloader -->
+    <div class="preloader" id="preloader">
+        <div class="preloader-inner">
+            <div class="preloader-name">Mia Esperanza</div>
+            <div class="preloader-line"></div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <a href="#hero" class="nav-logo">Mia Esperanza</a>
+        <button type="button" class="hamburger" id="hamburger" aria-label="Toggle navigation menu"
+            aria-expanded="false">
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+            <span class="hamburger-line"></span>
+        </button>
+        <ul class="nav-menu" id="nav-menu">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#gallery">Works</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <button type="button" class="audio-toggle" id="audio-toggle" aria-label="Toggle background music">
+            <i class="fa-solid fa-music"></i>
+        </button>
+        <audio id="bg-audio" src="media/fugaz - marte.mp3" loop preload="none"></audio>
+    </nav>
+
+    <!-- ============================
+         ACT 1: HERO
+         ============================ -->
+    <section class="hero" id="hero">
+        <div class="hero-media">
+            <video src="./media/video-1.mp4" autoplay loop muted playsinline poster="./media/1.jpeg"></video>
+        </div>
+        <div class="hero-overlay"></div>
+        
+        <!-- Freelance Badge -->
+        <div class="hero-badge" aria-hidden="true">
+            <span class="badge-dot"></span>
+            Available for freelance
+        </div>
+
+        <div class="hero-content">
+            <p class="hero-eyebrow">Photography Portfolio</p>
+            <h1 class="hero-title">
+                <span class="char">M</span><span class="char">i</span><span class="char">a</span>
+                <span class="char">&nbsp;</span>
+                <span class="char">E</span><span class="char">s</span><span class="char">p</span><span class="char">e</span><span class="char">r</span><span class="char">a</span><span class="char">n</span><span class="char">z</span><span class="char">a</span>
+            </h1>
+            <div class="hero-subtitle">
+                <span>between</span>
+                <em>Reality</em>
+                <span>&amp;</span>
+                <em>Dream</em>
+            </div>
+            <p class="hero-tagline">shots that will change your mind</p>
+        </div>
+        <div class="scroll-indicator" aria-hidden="true">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <!-- ============================
+         ACT 2: HORIZONTAL GALLERY
+         ============================ -->
+    <section class="gallery" id="gallery">
+        <div class="gallery-header">
+            <span class="gallery-label">Selected Works</span>
+            <h2 class="gallery-heading">The Collection</h2>
+        </div>
+        <div class="gallery-track">
+            <div class="gallery-panel">
+                <div class="panel-image-wrapper">
+                    <img src="./media/1.jpeg" alt="Portrait of Mia Esperanza smiling" loading="lazy" class="panel-image"
+                        data-caption="Atardecer en Buenos Aires — 35mm">
+                </div>
+                <span class="panel-counter">01</span>
+            </div>
+            <div class="gallery-panel">
+                <div class="panel-image-wrapper">
+                    <img src="./media/2.jpeg" alt="Artistic portrait" loading="lazy" class="panel-image" data-caption="Luces de Neón, Tokio — F1.4">
+                </div>
+                <span class="panel-counter">02</span>
+            </div>
+            <div class="gallery-panel">
+                <div class="panel-image-wrapper">
+                    <img src="./media/3.jpeg" alt="Special moment" loading="lazy" class="panel-image" data-caption="Instante fugaz — Analógico">
+                </div>
+                <span class="panel-counter">03</span>
+            </div>
+            <div class="gallery-panel">
+                <div class="panel-image-wrapper">
+                    <img src="./media/4.jpeg" alt="Photographic detail" loading="lazy" class="panel-image">
+                </div>
+                <span class="panel-counter">04</span>
+            </div>
+            <div class="gallery-panel">
+                <div class="panel-image-wrapper">
+                    <img src="./media/5.jpeg" alt="Deep gaze" loading="lazy" class="panel-image">
+                </div>
+                <span class="panel-counter">05</span>
+            </div>
+            <div class="gallery-panel">
+                <div class="panel-image-wrapper">
+                    <img src="./media/6.jpeg" alt="Soul dance" loading="lazy" class="panel-image">
+                </div>
+                <span class="panel-counter">06</span>
+            </div>
+            <div class="gallery-panel">
+                <div class="panel-image-wrapper">
+                    <img src="./media/7.jpeg" alt="Casual photograph" loading="lazy" class="panel-image">
+                </div>
+                <span class="panel-counter">07</span>
+            </div>
+            <div class="gallery-panel">
+                <div class="panel-image-wrapper">
+                    <img src="./media/8.jpeg" alt="Motion capture" loading="lazy" class="panel-image">
+                </div>
+                <span class="panel-counter">08</span>
+            </div>
+            <div class="gallery-panel">
+                <div class="panel-image-wrapper">
+                    <img src="./media/9.jpeg" alt="Moment of happiness" loading="lazy" class="panel-image">
+                </div>
+                <span class="panel-counter">09</span>
+            </div>
+            <div class="gallery-panel">
+                <div class="panel-image-wrapper">
+                    <img src="./media/10.jpeg" alt="Urban portrait" loading="lazy" class="panel-image">
+                </div>
+                <span class="panel-counter">10</span>
+            </div>
+            <div class="gallery-panel">
+                <div class="panel-image-wrapper">
+                    <img src="./media/11.jpeg" alt="Dazzling beauty" loading="lazy" class="panel-image">
+                </div>
+                <span class="panel-counter">11</span>
+            </div>
+            <div class="gallery-panel">
+                <div class="panel-image-wrapper">
+                    <img src="./media/12.jpeg" alt="Natural pose" loading="lazy" class="panel-image">
+                </div>
+                <span class="panel-counter">12</span>
+            </div>
+            <div class="gallery-panel">
+                <div class="panel-image-wrapper">
+                    <img src="./media/13.jpeg" alt="Candid shot" loading="lazy" class="panel-image">
+                </div>
+                <span class="panel-counter">13</span>
+            </div>
+        </div>
+        <div class="gallery-progress">
+            <div class="gallery-progress-bar" id="gallery-progress-bar"></div>
+        </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee" aria-hidden="true">
+        <div class="marquee-content">
+            <span class="marquee-text">Mia Esperanza &bull; Photography &bull; Reality &amp; Dream &bull; Capturing Moments
+                &bull;</span>
+            <span class="marquee-text">Mia Esperanza &bull; Photography &bull; Reality &amp; Dream &bull; Capturing Moments
+                &bull;</span>
+            <span class="marquee-text">Mia Esperanza &bull; Photography &bull; Reality &amp; Dream &bull; Capturing Moments
+                &bull;</span>
+            <span class="marquee-text">Mia Esperanza &bull; Photography &bull; Reality &amp; Dream &bull; Capturing Moments
+                &bull;</span>
+        </div>
+    </div>
+
+    <!-- ============================
+         ACT 3: BENTO GRID
+         ============================ -->
+    <section class="bento" id="about">
+        <div class="bento-header">
+            <h2 class="bento-heading">About Mia Esperanza</h2>
+            <p class="bento-subheading">Behind the lens.</p>
+        </div>
+        <div class="bento-grid">
+            <!-- 1. Text Card -->
+            <div class="bento-tile bento-about">
+                <h3 class="bento-about-title">Mia Esperanza</h3>
+                <span class="bento-about-label">Visual Artist</span>
+                <p class="bento-about-text">
+                    Capturing the world through an artistic lens. Every frame tells a story
+                    between reality and dream — finding beauty in the ordinary moments
+                    that most people overlook.
+                </p>
+                <p class="bento-about-text">
+                    Everything you need to achieve your goals is already within you.
+                    You have been assigned this mountain to show others it can be moved.
+                </p>
+            </div>
+            <!-- Image 1 -->
+            <div class="bento-tile bento-img">
+                <img src="./media/3.jpeg" alt="Special moment" loading="lazy">
+            </div>
+            <!-- Image 2 -->
+            <div class="bento-tile bento-img">
+                <img src="./media/9.jpeg" alt="Moment of happiness" loading="lazy">
+            </div>
+            <!-- Image Wide -->
+            <div class="bento-tile bento-img bento-wide">
+                <img src="./media/8.jpeg" alt="Motion capture" loading="lazy">
+            </div>
+            <!-- Stats -->
+            <div class="bento-tile bento-stats">
+                <div class="stat">
+                    <div class="stat-number" data-target="10" data-suffix="+">0</div>
+                    <div class="stat-label">Years of Experience</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" data-target="150" data-suffix="+">0</div>
+                    <div class="stat-label">Weddings Captured</div>
+                </div>
+            </div>
+            <!-- Quote -->
+            <div class="bento-tile bento-quote">
+                <blockquote>
+                    "Someday everything will make perfect sense. For now, laugh at the
+                    confusion, smile through the tears, and keep reminding yourself that
+                    everything happens for a reason."
+                </blockquote>
+            </div>
+            <!-- Image 3 -->
+            <div class="bento-tile bento-img">
+                <img src="./media/11.jpeg" alt="Dazzling beauty" loading="lazy">
+            </div>
+            <!-- Image Full Width (Banner) -->
+            <div class="bento-tile bento-img bento-full">
+                <img src="./media/6.jpeg" alt="Soul dance" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    <div class="footer-parallax-wrapper">
+        <!-- ============================
+             CONTACT
+             ============================ -->
+        <section class="contact" id="contact">
+            <h2 class="contact-title">Let's create something</h2>
+            <p class="contact-text">Have a project in mind? Let's bring it to life together.</p>
+            <div class="contact-links">
+                <a href="mailto:mia@example.com" class="contact-link magnetic-btn">
+                    <i class="fa-solid fa-envelope"></i>
+                    <span>Email</span>
+                </a>
+                <a href="#" class="contact-link magnetic-btn" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-instagram"></i>
+                    <span>Instagram</span>
+                </a>
+                <a href="#" class="contact-link magnetic-btn" target="_blank" rel="noopener">
+                    <i class="fa-brands fa-tiktok"></i>
+                    <span>TikTok</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-massive-text">MIA ESPERANZA</div>
+            <div class="footer-bottom">
+                <a href="#hero" class="footer-logo">Mia Esperanza</a>
+                <p class="footer-copy">&copy; 2024 Mia Esperanza — All rights reserved</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image viewer">
+        <button type="button" class="lightbox-close" aria-label="Close image viewer">&times;</button>
+        <button type="button" class="lightbox-prev" aria-label="Previous image">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button type="button" class="lightbox-next" aria-label="Next image">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+        <img class="lightbox-image" id="lightbox-img" src="data:," alt="">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
+        <div class="lightbox-counter" id="lightbox-counter"></div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://unpkg.com/lenis@1.1.18/dist/lenis.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="./script.js"></script>
+</body>
+
+</html>
