@@ -10,12 +10,18 @@ let lenis = null;
 
 if (!prefersReducedMotion) {
     lenis = new Lenis({
-        smoothWheel: window.innerWidth >= 1024,
-        autoRaf: true,
+        duration: 1.2,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        orientation: 'vertical',
+        gestureOrientation: 'vertical',
+        smoothWheel: true,
+        autoRaf: false,
     });
 
     lenis.on('scroll', ScrollTrigger.update);
-    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.add((time) => {
+        lenis.raf(time * 1000);
+    });
     gsap.ticker.lagSmoothing(0);
 }
 
@@ -164,28 +170,25 @@ function initAnimations() {
         const heroContent = document.querySelector('.hero-content');
         const heroBadge = document.querySelector('.hero-badge');
         
-        window.addEventListener('mousemove', (e) => {
-            const x = (e.clientX / window.innerWidth - 0.5) * 2;
-            const y = (e.clientY / window.innerHeight - 0.5) * 2;
-            
-            // Move title slightly
-            gsap.to(heroContent, {
-                x: x * -30,
-                y: y * -20,
-                duration: 1,
-                ease: 'power3.out'
+        if (heroContent) {
+            const xContent = gsap.quickTo(heroContent, 'x', { duration: 0.8, ease: 'power3.out' });
+            const yContent = gsap.quickTo(heroContent, 'y', { duration: 0.8, ease: 'power3.out' });
+            const xBadge = heroBadge ? gsap.quickTo(heroBadge, 'x', { duration: 1.2, ease: 'power3.out' }) : null;
+            const yBadge = heroBadge ? gsap.quickTo(heroBadge, 'y', { duration: 1.2, ease: 'power3.out' }) : null;
+
+            window.addEventListener('mousemove', (e) => {
+                if (window.scrollY > window.innerHeight) return;
+                const x = (e.clientX / window.innerWidth - 0.5) * 2;
+                const y = (e.clientY / window.innerHeight - 0.5) * 2;
+                
+                xContent(x * -25);
+                yContent(y * -15);
+                if (xBadge && yBadge) {
+                    xBadge(x * 12);
+                    yBadge(y * 8);
+                }
             });
-            
-            // Move badge slightly (reverse direction for depth)
-            if (heroBadge) {
-                gsap.to(heroBadge, {
-                    x: x * 15,
-                    y: y * 10,
-                    duration: 1.5,
-                    ease: 'power3.out'
-                });
-            }
-        });
+        }
     }
 
     /* — Hero parallax on scroll — */
@@ -262,18 +265,17 @@ function initAnimations() {
 
     /* ✦ Bento tiles — cascade entrance with scale + rotation */
     gsap.utils.toArray('.bento-tile').forEach((tile, i) => {
-        const rotateDir = i % 2 === 0 ? -3 : 3;
-        const xDir = i % 2 === 0 ? -40 : 40;
-        const tileImg = tile.querySelector('img');
+        const rotateDir = i % 2 === 0 ? -2 : 2;
+        const xDir = i % 2 === 0 ? -25 : 25;
 
         gsap.from(tile, {
-            y: 70,
+            y: 50,
             x: xDir,
             opacity: 0,
-            scale: 0.85,
+            scale: 0.9,
             rotate: rotateDir,
-            duration: 0.9,
-            delay: i * 0.08,
+            duration: 0.8,
+            delay: i * 0.05,
             ease: 'power3.out',
             scrollTrigger: {
                 trigger: tile,
@@ -281,24 +283,6 @@ function initAnimations() {
                 toggleActions: 'play none none reverse'
             }
         });
-
-        /* Grayscale → Color for bento images */
-        if (tileImg) {
-            gsap.fromTo(tileImg,
-                { filter: 'grayscale(1) brightness(0.8)' },
-                {
-                    filter: 'grayscale(0) brightness(1)',
-                    duration: 1,
-                    ease: 'power1.out',
-                    scrollTrigger: {
-                        trigger: tile,
-                        start: 'top 85%',
-                        end: 'top 45%',
-                        scrub: true
-                    }
-                }
-            );
-        }
     });
 
     /* — Contact entrance — */
@@ -366,100 +350,68 @@ function setupHorizontalGallery() {
         }
     });
 
-    /* ✦ Circle clip-path reveal — expanding from center */
-    gsap.utils.toArray('.panel-image-wrapper').forEach((wrapper) => {
-        gsap.fromTo(wrapper,
-            { clipPath: 'circle(0% at 50% 50%)' },
-            {
-                clipPath: 'circle(100% at 50% 50%)',
-                ease: 'power2.out',
-                scrollTrigger: {
-                    trigger: wrapper,
-                    containerAnimation: horizontalScroll,
-                    start: 'left 95%',
-                    end: 'left 45%',
-                    scrub: true
-                }
-            }
-        );
-    });
-
-    /* ✦ 3D panel entrance — scale + alternating rotateY */
+    /* ✦ Panel 3D entrance & inner parallax (GPU compositor only) */
     panels.forEach((panel, i) => {
-        const direction = i % 2 === 0 ? 8 : -8;
+        const direction = i % 2 === 0 ? 6 : -6;
+        const img = panel.querySelector('.panel-image');
+        const counter = panel.querySelector('.panel-counter');
+
+        // Smooth 3D scale and entrance
         gsap.fromTo(panel,
             {
-                scale: 0.82,
+                scale: 0.88,
                 rotateY: direction,
-                opacity: 0.4,
-                filter: 'brightness(0.6)'
+                opacity: 0.5
             },
             {
                 scale: 1,
                 rotateY: 0,
                 opacity: 1,
-                filter: 'brightness(1)',
-                ease: 'power3.out',
+                ease: 'power2.out',
                 scrollTrigger: {
                     trigger: panel,
                     containerAnimation: horizontalScroll,
                     start: 'left 100%',
-                    end: 'left 55%',
+                    end: 'left 50%',
                     scrub: true
                 }
             }
         );
-    });
 
-    /* ✦ Inner parallax — image moves inside its container */
-    gsap.utils.toArray('.panel-image').forEach((img) => {
-        gsap.fromTo(img,
-            { yPercent: -15 },
-            {
-                yPercent: 5,
-                ease: 'none',
+        // Inner image parallax
+        if (img) {
+            gsap.fromTo(img,
+                { yPercent: -12 },
+                {
+                    yPercent: 6,
+                    ease: 'none',
+                    scrollTrigger: {
+                        trigger: panel,
+                        containerAnimation: horizontalScroll,
+                        start: 'left 100%',
+                        end: 'right 0%',
+                        scrub: true
+                    }
+                }
+            );
+        }
+
+        // Counter entrance
+        if (counter) {
+            gsap.from(counter, {
+                opacity: 0,
+                scale: 0.6,
+                y: 15,
+                duration: 0.4,
+                ease: 'power2.out',
                 scrollTrigger: {
-                    trigger: img.closest('.gallery-panel'),
+                    trigger: counter,
                     containerAnimation: horizontalScroll,
-                    start: 'left 100%',
-                    end: 'right 0%',
-                    scrub: true
+                    start: 'left 65%',
+                    toggleActions: 'play none none reverse'
                 }
-            }
-        );
-    });
-
-    /* ✦ Grayscale → Color on scroll — photos come alive */
-    gsap.utils.toArray('.panel-image').forEach((img) => {
-        gsap.fromTo(img,
-            { filter: 'grayscale(1) brightness(0.75)' },
-            {
-                filter: 'grayscale(0) brightness(1)',
-                ease: 'power1.out',
-                scrollTrigger: {
-                    trigger: img.closest('.gallery-panel'),
-                    containerAnimation: horizontalScroll,
-                    start: 'left 80%',
-                    end: 'left 35%',
-                    scrub: true
-                }
-            }
-        );
-    });
-
-    /* Counter entrance with scale */
-    gsap.utils.toArray('.panel-counter').forEach((counter) => {
-        gsap.from(counter, {
-            opacity: 0,
-            scale: 0.5,
-            y: 20,
-            scrollTrigger: {
-                trigger: counter,
-                containerAnimation: horizontalScroll,
-                start: 'left 60%',
-                toggleActions: 'play none none reverse'
-            }
-        });
+            });
+        }
     });
 }
 
@@ -468,16 +420,15 @@ function setupHorizontalGallery() {
    ============================================ */
 function setupVerticalGallery() {
     gsap.utils.toArray('.gallery-panel').forEach((panel, i) => {
-        const direction = i % 2 === 0 ? -30 : 30;
-        const img = panel.querySelector('.panel-image');
+        const direction = i % 2 === 0 ? -20 : 20;
 
         gsap.from(panel, {
-            y: 80,
+            y: 60,
             x: direction,
             opacity: 0,
-            scale: 0.9,
+            scale: 0.94,
             rotate: i % 2 === 0 ? -2 : 2,
-            duration: 0.9,
+            duration: 0.8,
             ease: 'power3.out',
             scrollTrigger: {
                 trigger: panel,
@@ -485,24 +436,6 @@ function setupVerticalGallery() {
                 toggleActions: 'play none none reverse'
             }
         });
-
-        /* Grayscale → Color on mobile too */
-        if (img) {
-            gsap.fromTo(img,
-                { filter: 'grayscale(1) brightness(0.75)' },
-                {
-                    filter: 'grayscale(0) brightness(1)',
-                    duration: 1.2,
-                    ease: 'power1.out',
-                    scrollTrigger: {
-                        trigger: panel,
-                        start: 'top 80%',
-                        end: 'top 40%',
-                        scrub: true
-                    }
-                }
-            );
-        }
     });
 }
 
